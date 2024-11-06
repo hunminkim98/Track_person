@@ -303,6 +303,10 @@ if __name__ == "__main__":
 
     mode = input("Select tracking mode ('auto' for automatic, 'manual' for manual selection via mouse click): ")
 
+    if mode not in ['auto', 'manual']:
+        print("Wrong mode selected. Exiting...")
+        exit()
+
     all_avg_min_avg = []
     save_folders = []
 
