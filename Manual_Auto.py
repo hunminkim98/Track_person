@@ -78,7 +78,7 @@ def select_person_manually(people):
         ax.annotate(f'{i+1}', xy=(np.mean(x_data), -np.mean(y_data)), color='red', fontsize=12)
         person_patches.append((scat, i))
 
-    ax.set_title('Click on the person you want to track')
+    ax.set_title('Click on the person you want to track or close the window to enter ID manually')
     ax.set_xlim([0, 4000])
     ax.set_ylim([-3000, 0])
 
@@ -106,10 +106,21 @@ def select_person_manually(people):
     cid = fig.canvas.mpl_connect('button_press_event', onclick)
     plt.show()
 
-    if selected_person_idx:
-        return selected_person_idx[0]
+    if not selected_person_idx:  # If no person was selected by clicking
+        while True:
+            print(f"\nAvailable person IDs: {list(range(1, len(people) + 1))}")
+            try:
+                selected_id = int(input("Enter the ID of the person you want to track (or 0 to cancel): "))
+                if selected_id == 0:
+                    return None
+                if 1 <= selected_id <= len(people):
+                    return selected_id - 1
+                else:
+                    print("Invalid ID. Please try again.")
+            except ValueError:
+                print("Please enter a valid number.")
     else:
-        return None
+        return selected_person_idx[0]
 
 def track_person(folder_path, mode='auto'):
     json_files = sorted([f for f in os.listdir(folder_path) if f.endswith('.json')], key=natural_sort_key)
@@ -296,7 +307,7 @@ def save_data(data, json_files, folder_path):
     return save_folder
 
 if __name__ == "__main__":
-    base_path = r'C:\Users\5W555A\Desktop\Challenge_Article\pose2sim\Pose2Sim\Demo_Batch\방민식\pose\arbitary11111111111111111'
+    base_path = r'C:\Users\5W555A\Desktop\Challenge_Article\pose2sim\Pose2Sim\Demo_batch3\s8\errr'
     json_folders = find_json_folders(base_path)
 
     print(f"Found {len(json_folders)} folders with JSON files")
