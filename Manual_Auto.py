@@ -307,7 +307,7 @@ def save_data(data, json_files, folder_path):
     return save_folder
 
 if __name__ == "__main__":
-    base_path = r'C:\Users\5W555A\Desktop\Challenge_Article\pose2sim\Pose2Sim\Demo_batch3\s8\errr'
+    base_path = r'D:\석사\석사4차\pose2sim\Pose2Sim\Demo_Batch\Post1\pose'
     json_folders = find_json_folders(base_path)
 
     print(f"Found {len(json_folders)} folders with JSON files")
